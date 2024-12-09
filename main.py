@@ -20,22 +20,17 @@ class Track():
         self.name = name
         self.sections = sections
 
-def sin_wave(frequency, duration):
+def sine_wave(frequency, duration):
     for frame in range(round(duration * sample_rate)):
         time = frame / sample_rate
-        amplitude = 1/((time+1)**5) * math.sin(2 * math.pi * frequency * time)
-        yield round((amplitude + 1) /2 * 255)
+        amplitude = 1/((frequency * 2 * time+1)) * math.sin(2 * math.pi * frequency * time)
+        yield math.floor((amplitude + 1)/2 * 255)
 
 def generate_measure(wav_file, tempo:int, beats:int, sub:int) -> None:
     beat_duration = 60/tempo/(sub/4)
-    wav_file.writeframes(bytes(sin_wave(high_pitch, beat_duration))) # write beat 1
+    wav_file.writeframes(bytes(sine_wave(low_pitch, beat_duration))) # write beat 1
     for beat in range(0, int((beats)*(sub/4))-1):
-        wav_file.writeframes(bytes(sin_wave(low_pitch, beat_duration))) # write rest of beats
-
-def generate_warning_measure(wav_file, beats_per_measure:int, tempo:int) -> None:
-    beat_duration = 60/tempo
-    for beat in range(beats_per_measure):
-        wav_file.writeframes(bytes(sin_wave(warning_pitch, beat_duration)))
+        wav_file.writeframes(bytes(sine_wave(high_pitch, beat_duration))) # write rest of beats
 
 def import_track(file) -> Track:
         with open(file, "r") as file:
@@ -80,8 +75,5 @@ def save_track(track:Track, file:str) -> None:
     with open(file, "w") as file:
         file.write(json.dumps(data, indent=4))
 
-t = new_track()
-save_track(t, "hello.json")
-
-t2 = import_track("hello.json")
-export_track(t2)
+t = import_track("hello.json")
+export_track(t)

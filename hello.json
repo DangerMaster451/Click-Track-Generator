@@ -6,14 +6,14 @@
             "tempo": 120,
             "beats": 4,
             "sub": 4,
-            "dur": 2
+            "dur": 4
         },
         {
             "name": "chorus",
             "tempo": 135,
-            "beats": 5,
+            "beats": 4,
             "sub": 8,
-            "dur": 3
+            "dur": 4
         }
     ]
 }
