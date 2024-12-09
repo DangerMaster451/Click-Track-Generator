@@ -26,10 +26,10 @@ def sin_wave(frequency, duration):
         amplitude = 1/((time+1)**5) * math.sin(2 * math.pi * frequency * time)
         yield round((amplitude + 1) /2 * 255)
 
-def generate_measure(wav_file, beats_per_measure:int, tempo:int) -> None:
+def generate_measure(wav_file, beats:int, tempo:int) -> None:
     beat_duration = 60/tempo
     wav_file.writeframes(bytes(sin_wave(high_pitch, beat_duration))) # write beat 1
-    for beat in range(beats_per_measure-1):
+    for beat in range(beats-1):
         wav_file.writeframes(bytes(sin_wave(low_pitch, beat_duration))) # write rest of beats
 
 def generate_warning_measure(wav_file, beats_per_measure:int, tempo:int) -> None:
@@ -46,10 +46,17 @@ def read_track(file) -> Track:
                 track_sections.append(Track_Section(section["name"], section["tempo"], section["beats"], section["sub"], section["dur"]))
         return Track(name, track_sections)
 
-with wave.open("out.wav", mode="wb") as wav_file:
-    wav_file.setnchannels(1)
-    wav_file.setsampwidth(1)
-    wav_file.setframerate(sample_rate)
+def export_track(track:Track):
+    with wave.open(f"{track.name}.wav", mode="wb") as wav_file:
+        #setup file
+        wav_file.setnchannels(1)
+        wav_file.setsampwidth(1)
+        wav_file.setframerate(sample_rate)
 
-    #main song
-    read_track("reckless_love.json")
+        #main song
+        for section in track.sections:
+            for _ in range(0,section.dur):
+                generate_measure(wav_file, section.beats, section.tempo)
+
+t = read_track("reckless_love.json")       
+export_track(t)
