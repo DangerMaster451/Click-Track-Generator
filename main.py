@@ -26,10 +26,10 @@ def sin_wave(frequency, duration):
         amplitude = 1/((time+1)**5) * math.sin(2 * math.pi * frequency * time)
         yield round((amplitude + 1) /2 * 255)
 
-def generate_measure(wav_file, beats:int, tempo:int) -> None:
-    beat_duration = 60/tempo
+def generate_measure(wav_file, tempo:int, beats:int, sub:int) -> None:
+    beat_duration = 60/tempo/(sub/4)
     wav_file.writeframes(bytes(sin_wave(high_pitch, beat_duration))) # write beat 1
-    for beat in range(beats-1):
+    for beat in range(0, int((beats)*(sub/4))-1):
         wav_file.writeframes(bytes(sin_wave(low_pitch, beat_duration))) # write rest of beats
 
 def generate_warning_measure(wav_file, beats_per_measure:int, tempo:int) -> None:
@@ -56,7 +56,7 @@ def export_track(track:Track):
         #main song
         for section in track.sections:
             for _ in range(0,section.dur):
-                generate_measure(wav_file, section.beats, section.tempo)
+                generate_measure(wav_file, section.tempo, section.beats, section.sub)
 
 t = read_track("reckless_love.json")       
 export_track(t)
