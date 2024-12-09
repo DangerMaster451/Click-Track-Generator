@@ -1,0 +1,19 @@
+{
+    "name": "hello",
+    "sections": [
+        {
+            "name": "verse1",
+            "tempo": 120,
+            "beats": 4,
+            "sub": 4,
+            "dur": 2
+        },
+        {
+            "name": "chorus",
+            "tempo": 135,
+            "beats": 5,
+            "sub": 8,
+            "dur": 3
+        }
+    ]
+}

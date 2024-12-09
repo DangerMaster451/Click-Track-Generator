@@ -73,5 +73,15 @@ def new_track() -> Track:
             break
     return Track(track_name, sections)
 
+def save_track(track:Track, file:str) -> None:
+    sections = [{"name":section.name, "tempo":section.tempo, "beats":section.beats, "sub":section.sub, "dur":section.dur} for section in track.sections]
+    data = {"name":track.name, "sections":sections}
+
+    with open(file, "w") as file:
+        file.write(json.dumps(data, indent=4))
+
 t = new_track()
-export_track(t)
+save_track(t, "hello.json")
+
+t2 = import_track("hello.json")
+export_track(t2)
