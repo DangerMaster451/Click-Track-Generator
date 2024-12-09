@@ -1,0 +1,85 @@
+{
+    "name": "track1",
+    "sections": [
+        {
+            "name": "v1",
+            "type": "normal",
+            "tempo": 100,
+            "beats": 4,
+            "sub": 4,
+            "dur": 2
+        },
+        {
+            "name": "tempo_change_0",
+            "type": "tempo-change",
+            "tempo": 100.0,
+            "beats": 4,
+            "sub": 4,
+            "dur": 0.0625
+        },
+        {
+            "name": "tempo_change_1",
+            "type": "tempo-change",
+            "tempo": 107.5,
+            "beats": 4,
+            "sub": 4,
+            "dur": 0.0625
+        },
+        {
+            "name": "tempo_change_2",
+            "type": "tempo-change",
+            "tempo": 115.0,
+            "beats": 4,
+            "sub": 4,
+            "dur": 0.0625
+        },
+        {
+            "name": "tempo_change_3",
+            "type": "tempo-change",
+            "tempo": 122.5,
+            "beats": 4,
+            "sub": 4,
+            "dur": 0.0625
+        },
+        {
+            "name": "tempo_change_4",
+            "type": "tempo-change",
+            "tempo": 130.0,
+            "beats": 4,
+            "sub": 4,
+            "dur": 0.0625
+        },
+        {
+            "name": "tempo_change_5",
+            "type": "tempo-change",
+            "tempo": 137.5,
+            "beats": 4,
+            "sub": 4,
+            "dur": 0.0625
+        },
+        {
+            "name": "tempo_change_6",
+            "type": "tempo-change",
+            "tempo": 145.0,
+            "beats": 4,
+            "sub": 4,
+            "dur": 0.0625
+        },
+        {
+            "name": "tempo_change_7",
+            "type": "tempo-change",
+            "tempo": 152.5,
+            "beats": 4,
+            "sub": 4,
+            "dur": 0.0625
+        },
+        {
+            "name": "chorus",
+            "type": "normal",
+            "tempo": 160,
+            "beats": 4,
+            "sub": 4,
+            "dur": 2
+        }
+    ]
+}

@@ -8,12 +8,31 @@ low_pitch = 1046.502
 warning_pitch = 1975.533
 
 class Track_Section():
-    def __init__(self, name, tempo, beats, sub, dur):
+    def __init__(self, name, type, tempo, beats, sub, dur):
         self.name = name
+        self.type = type
         self.tempo = tempo
         self.beats = beats
         self.sub = sub
         self.dur = dur
+
+class Tempo_Change():
+    def __init__(self, name, starting_tempo, ending_tempo, beats, sub, dur):
+        self.name = name
+        self.type = "tempo-change"
+        self.starting_tempo = starting_tempo
+        self.ending_tempo = ending_tempo
+        self.beats = beats
+        self.sub = sub
+        self.dur = dur
+
+    def generate_sections(self) -> list[Track_Section]:
+        sections = []
+        total_beats = int(self.beats * self.sub/4 * self.dur)
+        for beat in range(total_beats):
+            tempo = (self.ending_tempo - self.starting_tempo) * (beat/total_beats) + self.starting_tempo
+            sections.append(Track_Section(f"tempo_change_{beat}", "tempo-change", tempo, self.beats, self.sub, 1/(self.beats*self.sub)))
+        return sections
 
 class Track():
     def __init__(self, name:str, sections:list[Track_Section]):
@@ -32,13 +51,26 @@ def generate_measure(wav_file, tempo:int, beats:int, sub:int) -> None:
     for beat in range(0, int((beats)*(sub/4))-1):
         wav_file.writeframes(bytes(sine_wave(high_pitch, beat_duration))) # write rest of beats
 
+def generate_beat(wav_file, tempo:float, sub:int, beat_type:str):
+    beat_duration = 60/tempo/(sub/4)
+    if beat_type == "high":
+        wav_file.writeframes(bytes(sine_wave(high_pitch, beat_duration)))
+    elif beat_type == "low":
+        wav_file.writeframes(bytes(sine_wave(low_pitch, beat_duration)))
+
 def import_track(file) -> Track:
         with open(file, "r") as file:
             file_data = json.loads(file.read())
             name = file_data["name"]
             track_sections = []
             for section in file_data["sections"]:
-                track_sections.append(Track_Section(section["name"], section["tempo"], section["beats"], section["sub"], section["dur"]))
+                if section["type"] == "normal":
+                    track_sections.append(Track_Section(section["name"], section["type"], section["tempo"], section["beats"], section["sub"], section["dur"]))
+                elif section["type"] == "tempo-change":
+                    tempo_change = Tempo_Change(section["name"], section["start_tempo"], section["end_tempo"], section["beats"], section["sub"], section["dur"])
+                    for section in tempo_change.generate_sections():
+                        track_sections.append(section)
+                    
         return Track(name, track_sections)
 
 def export_track(track:Track):
@@ -50,8 +82,11 @@ def export_track(track:Track):
 
         #main song
         for section in track.sections:
-            for _ in range(0,section.dur):
-                generate_measure(wav_file, section.tempo, section.beats, section.sub)
+            if section.type == "normal":
+                for _ in range(0,int(section.dur)):
+                    generate_measure(wav_file, section.tempo, section.beats, section.sub)
+            elif section.type == "tempo-change":
+                generate_beat(wav_file, section.tempo, section.sub, "high")
 
 def new_track() -> Track:
     track_name = input("track name: ")
@@ -69,11 +104,12 @@ def new_track() -> Track:
     return Track(track_name, sections)
 
 def save_track(track:Track, file:str) -> None:
-    sections = [{"name":section.name, "tempo":section.tempo, "beats":section.beats, "sub":section.sub, "dur":section.dur} for section in track.sections]
+    sections = [{"name":section.name, "type":section.type, "tempo":section.tempo, "beats":section.beats, "sub":section.sub, "dur":section.dur} for section in track.sections]
     data = {"name":track.name, "sections":sections}
 
     with open(file, "w") as file:
         file.write(json.dumps(data, indent=4))
 
-t = import_track("hello.json")
+t = import_track("track1.json")
+save_track(t, "track1-with-accel.json")
 export_track(t)

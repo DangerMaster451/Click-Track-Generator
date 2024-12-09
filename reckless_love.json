@@ -1,7 +1,0 @@
-{
-    "name":"Reckless Love - Version 1",
-    "sections": [
-        {"name":"verse-1", "tempo":75, "beats": 4, "sub":4, "dur": 2},
-        {"name":"chorus1", "tempo":75, "beats": 4, "sub":16, "dur": 2}
-    ]
-}
