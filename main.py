@@ -37,7 +37,7 @@ def generate_warning_measure(wav_file, beats_per_measure:int, tempo:int) -> None
     for beat in range(beats_per_measure):
         wav_file.writeframes(bytes(sin_wave(warning_pitch, beat_duration)))
 
-def read_track(file) -> Track:
+def import_track(file) -> Track:
         with open(file, "r") as file:
             file_data = json.loads(file.read())
             name = file_data["name"]
@@ -58,5 +58,20 @@ def export_track(track:Track):
             for _ in range(0,section.dur):
                 generate_measure(wav_file, section.tempo, section.beats, section.sub)
 
-t = read_track("reckless_love.json")       
+def new_track() -> Track:
+    track_name = input("track name: ")
+    sections = []
+    while True:
+        section_name = input("section name: ")
+        tempo = int(input("tempo: "))
+        beats = int(input("beats: "))
+        subdivision = int(input("subdivision: "))
+        duration = int(input("duration (measures): "))
+        sections.append(Track_Section(section_name, tempo, beats, subdivision, duration))
+
+        if input("Continue? y/n ") == "n":
+            break
+    return Track(track_name, sections)
+
+t = new_track()
 export_track(t)
