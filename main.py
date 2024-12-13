@@ -10,13 +10,19 @@ low_pitch = 1046.502
 warning_pitch = 1975.533
 
 class Track_Section():
-    def __init__(self, name, type, tempo, beats, sub, dur):
+    def __init__(self, name, type, tempo, beats, sub, dur, time_stamp=0, cue=""):
         self.name = name
+        self.cue = cue
         self.type = type
         self.tempo = tempo
         self.beats = beats
         self.sub = sub
         self.dur = dur
+        self.time_stamp = time_stamp
+        self.cue = cue
+
+    def copy(self):
+        return type(self)(self.name, self.type, self.tempo, self.beats, self.sub, self.dur, self.cue)
 
 class Tempo_Change():
     def __init__(self, name, starting_tempo, ending_tempo, beats, sub, dur):
@@ -60,7 +66,7 @@ def generate_beat(wav_file, tempo:float, sub:int, beat_type:str):
     elif beat_type == "low":
         wav_file.writeframes(bytes(sine_wave(low_pitch, beat_duration)))
 
-def import_track(file) -> Track:
+'''def import_track(file) -> Track:
         with open(file, "r") as file:
             file_data = json.loads(file.read())
             name = file_data["name"]
@@ -73,7 +79,48 @@ def import_track(file) -> Track:
                     for section in tempo_change.generate_sections():
                         track_sections.append(section)
                     
-        return Track(name, track_sections)
+        return Track(name, track_sections)'''
+
+def import_track(file:str) -> Track:
+    with open(file, "r") as file:
+        file_data = json.loads(file.read())
+        track_name = file_data["track-name"]
+        track_tempi = file_data["track-tempi"]
+        track_beats = file_data["track-beats"]
+        track_subdivisions = file_data["track-subdivisions"]
+
+        units = []
+        for unit in file_data["units"]:
+            name = unit["name"]
+            type = unit["type"]
+            for sub_unit in unit["sub-units"]:
+                if type == "ignore-defaults":
+                    tempo = sub_unit["tempo"]
+                    beats = sub_unit["beats"]
+                    subdivisions = sub_unit["sub"]
+                else:
+                    tempo = track_tempi[int(sub_unit["tempo"])]
+                    beats = track_beats[int(sub_unit["beats"])]
+                    subdivisions = track_subdivisions[int(sub_unit["sub"])]
+                duration = sub_unit["dur"]
+                units.append(Track_Section(name, type, tempo, beats, subdivisions, duration))
+        
+        sections = []
+        for section in file_data["track-order"]:
+            unit_name = section["unit-name"]
+            cue = section["cue"]
+
+            for unit in units:
+                if unit.name == unit_name:
+                    new_unit = unit.copy()
+                    new_unit.cue = cue
+                    sections.append(new_unit)
+
+        #test
+        for s in sections:
+            print(s.name, s.cue)
+
+        return Track(track_name, sections)
 
 def export_track(track:Track):
     with wave.open(f"{track.name}.wav", mode="wb") as wav_file:
@@ -122,8 +169,5 @@ def mix_in_cues(cue_file:str, track_file:str, out_file:str, delay:float) -> None
     mixed = track_audio.overlay(cue_audio, position=delay * 1000)
     mixed.export(out_file, format='wav')
 
-create_cue("hi there hello")
-t = import_track("Goodness-Of-God.json")
+t = import_track("test.json")
 export_track(t)
-
-mix_in_cues("hi there hello.wav", "Goodness-Of-God Version 1.wav", "mix.wav")

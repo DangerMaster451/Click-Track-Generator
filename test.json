@@ -1,0 +1,108 @@
+{
+    "track-name":"I Speak Jesus",
+    "track-tempi":[74],
+    "track-beats": [4],
+    "track-subdivisions":[8],
+    "units": [
+        {
+            "name":"Count-In",
+            "type":"ignore-defaults",
+            "sub-units":[
+                {
+                    "tempo":74,
+                    "beats":4,
+                    "sub":2,
+                    "dur":1
+                },
+                {
+                    "tempo":74,
+                    "beats":4,
+                    "sub":4,
+                    "dur":1
+                }
+            ]
+            
+        },
+        {
+            "name":"Intro",
+            "type":"normal",
+            "sub-units":[
+                {
+                    "tempo":0,
+                    "beats":0,
+                    "sub":0,
+                    "dur":4
+                }
+            ]  
+        },
+        {
+            "name":"Verse",
+            "type":"normal",
+            "sub-units":[
+                {
+                    "tempo":0,
+                    "beats":0,
+                    "sub":0,
+                    "dur":8
+                }
+            ]
+        },
+        {
+            "name":"Pre-chorus",
+            "type":"normal",
+            "sub-units":[
+                {
+                    "tempo":0,
+                    "beats":0,
+                    "sub":0,
+                    "dur":4
+                }
+            ]
+            
+        },
+        {
+            "name":"Chorus",
+            "type":"normal",
+            "sub-units":[
+                {
+                    "tempo":0,
+                    "beats":0,
+                    "sub":0,
+                    "dur":8
+                }
+            ]
+            
+        },
+        {
+            "name":"Outro",
+            "type":"normal",
+            "sub-units":[
+                {
+                    "tempo":0,
+                    "beats":0,
+                    "sub":0,
+                    "dur":6
+                }
+            ]
+        }
+    ],
+    "track-order":
+        [
+            {"unit-name":"Count-in", "cue":""},
+            {"unit-name":"Intro", "cue":""},
+            {"unit-name":"Verse", "cue":"Verse 1"},
+            {"unit-name":"Verse", "cue":"Verse 2"},
+            {"unit-name":"Pre-chorus", "cue":"Pre-chorus"},
+            {"unit-name":"Chorus", "cue":"Chorus"},
+            {"unit-name":"Verse", "cue":"Verse 3"},
+            {"unit-name":"Pre-chorus", "cue":"Pre-chorus"},
+            {"unit-name":"Chorus", "cue":"Chorus"},
+            {"unit-name":"Verse", "cue":"Verse 4A"},
+            {"unit-name":"Verse", "cue":"Verse 4A"},
+            {"unit-name":"Verse", "cue":"Verse 4B"},
+            {"unit-name":"Verse", "cue":"Chorus"},
+            {"unit-name":"Verse", "cue":"Chorus"},
+            {"unit-name":"Verse", "cue":"Verse 1"},
+            {"unit-name":"Outro", "cue":"Outro"}
+        ]
+}
