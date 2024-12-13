@@ -1,0 +1,109 @@
+{
+    "name": "I-Speak-Jesus Version 1",
+    "sections": [
+        {
+            "name": "Intro",
+            "type": "normal",
+            "tempo": 74,
+            "beats": 4,
+            "sub": 8,
+            "dur": 4
+        },
+        {
+            "name": "Verse",
+            "type": "normal",
+            "tempo": 74,
+            "beats": 4,
+            "sub": 8,
+            "dur": 8
+        },
+        {
+            "name": "Verse",
+            "type": "normal",
+            "tempo": 74,
+            "beats": 4,
+            "sub": 8,
+            "dur": 8
+        },
+        {
+            "name": "Pre-chorus",
+            "type": "normal",
+            "tempo": 74,
+            "beats": 4,
+            "sub": 8,
+            "dur": 4
+        },
+        {
+            "name": "Chorus",
+            "type": "normal",
+            "tempo": 74,
+            "beats": 4,
+            "sub": 8,
+            "dur": 8
+        },
+        {
+            "name": "Verse",
+            "type": "normal",
+            "tempo": 74,
+            "beats": 4,
+            "sub": 8,
+            "dur": 8
+        },
+        {
+            "name": "Pre-chorus",
+            "type": "normal",
+            "tempo": 74,
+            "beats": 4,
+            "sub": 8,
+            "dur": 4
+        },
+        {
+            "name": "Chorus",
+            "type": "normal",
+            "tempo": 74,
+            "beats": 4,
+            "sub": 8,
+            "dur": 8
+        },
+        {
+            "name": "Verse 4A",
+            "type": "normal",
+            "tempo": 74,
+            "beats": 4,
+            "sub": 8,
+            "dur": 8
+        },
+        {
+            "name": "Verse 4A",
+            "type": "normal",
+            "tempo": 74,
+            "beats": 4,
+            "sub": 8,
+            "dur": 8
+        },
+        {
+            "name": "Verse 4B",
+            "type": "normal",
+            "tempo": 74,
+            "beats": 4,
+            "sub": 8,
+            "dur": 8
+        },
+        {
+            "name": "Chorus",
+            "type": "normal",
+            "tempo": 74,
+            "beats": 4,
+            "sub": 8,
+            "dur": 8
+        },
+        {
+            "name": "Outro",
+            "type": "normal",
+            "tempo": 74,
+            "beats": 4,
+            "sub": 8,
+            "dur": 6
+        }
+    ]
+}

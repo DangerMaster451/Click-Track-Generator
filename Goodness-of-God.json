@@ -1,0 +1,149 @@
+{
+    "name": "Goodness-of-God Version 1",
+    "sections": [
+        {
+            "name": "Count-In",
+            "type":"normal",
+            "tempo": 63,
+            "beats": 4,
+            "sub": 4,
+            "dur": 2
+        },
+
+        {
+            "name": "Measure 1",
+            "type":"normal",
+            "tempo": 63,
+            "beats": 4,
+            "sub": 4,
+            "dur": 1
+        },
+
+        {
+            "name": "Measure 2",
+            "type":"normal",
+            "tempo": 63,
+            "beats": 2,
+            "sub": 4,
+            "dur": 1
+        },
+
+        {
+            "name": "Measures 3-9",
+            "type":"normal",
+            "tempo": 63,
+            "beats": 4,
+            "sub": 4,
+            "dur": 7
+        },
+
+        {
+            "name": "Chorus",
+            "type":"normal",
+            "tempo": 63,
+            "beats": 4,
+            "sub": 4,
+            "dur": 8
+        },
+
+        {
+            "name": "Measure 1",
+            "type":"normal",
+            "tempo": 63,
+            "beats": 4,
+            "sub": 4,
+            "dur": 1
+        },
+
+        {
+            "name": "Measure 2",
+            "type":"normal",
+            "tempo": 63,
+            "beats": 2,
+            "sub": 4,
+            "dur": 1
+        },
+
+        {
+            "name": "Measures 3-9",
+            "type":"normal",
+            "tempo": 63,
+            "beats": 4,
+            "sub": 4,
+            "dur": 7
+        },
+
+        {
+            "name": "Chorus",
+            "type":"normal",
+            "tempo": 63,
+            "beats": 4,
+            "sub": 4,
+            "dur": 8
+        },
+
+        {
+            "name": "Measure 1",
+            "type":"normal",
+            "tempo": 63,
+            "beats": 4,
+            "sub": 4,
+            "dur": 1
+        },
+
+        {
+            "name": "Measure 2",
+            "type":"normal",
+            "tempo": 63,
+            "beats": 2,
+            "sub": 4,
+            "dur": 1
+        },
+
+        {
+            "name": "Measures 3-9",
+            "type":"normal",
+            "tempo": 63,
+            "beats": 4,
+            "sub": 4,
+            "dur": 7
+        },
+
+        {
+            "name": "Bridge",
+            "type":"normal",
+            "tempo": 63,
+            "beats": 4,
+            "sub": 4,
+            "dur": 8
+        },
+
+        {
+            "name": "Bridge",
+            "type":"normal",
+            "tempo": 63,
+            "beats": 4,
+            "sub": 4,
+            "dur": 8
+        },
+
+        {
+            "name": "Chorus",
+            "type":"normal",
+            "tempo": 63,
+            "beats": 4,
+            "sub": 4,
+            "dur": 8
+        },
+
+        {
+            "name": "Outro",
+            "type":"normal",
+            "tempo": 63,
+            "beats": 4,
+            "sub": 4,
+            "dur": 2
+        }
+    ]
+    
+}

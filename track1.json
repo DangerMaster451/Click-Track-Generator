@@ -14,7 +14,7 @@
             "name":"pre-chorus",
             "type":"tempo-change",
             "start_tempo":100,
-            "end_tempo":160,
+            "end_tempo":140,
             "beats":4,
             "sub":4,
             "dur":2
@@ -23,7 +23,7 @@
         {
             "name": "chorus",
             "type":"normal",
-            "tempo": 160,
+            "tempo": 140,
             "beats": 4,
             "sub": 4,
             "dur": 2

@@ -1,3 +1,5 @@
+from gtts import gTTS
+from pydub import AudioSegment
 import wave
 import math
 import json
@@ -110,6 +112,16 @@ def save_track(track:Track, file:str) -> None:
     with open(file, "w") as file:
         file.write(json.dumps(data, indent=4))
 
-t = import_track("track1.json")
-save_track(t, "track1-with-accel.json")
-export_track(t)
+def create_cue(text) -> None:
+    gTTS(text=text, lang="en").save(f"{text}.wav")
+
+def insert_cue(cue_file, track_file, timestamp, out_file):
+    cue_audio = AudioSegment.from_file("C:\\Users\\andre\\dev\\Click Track Generator\\Verse 1.wav")
+    track_audio = AudioSegment.from_file(track_file)
+
+    mixed = track_audio.overlay(cue_audio)
+    mixed.export(out_file, format='mp3')
+
+#create_cue("thingy is a really cool thingy and I love him so much. Thingy is my best friend and I can't live without my thingy")
+t = import_track("I-Speak-Jesus.json")
+save_track(t, "I-speak-Jesus.wav")
