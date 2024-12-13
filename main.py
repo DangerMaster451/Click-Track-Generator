@@ -1,4 +1,5 @@
 from gtts import gTTS
+from pydub import AudioSegment
 import wave
 import math
 import json
@@ -114,6 +115,15 @@ def save_track(track:Track, file:str) -> None:
 def create_cue(text) -> None:
     gTTS(text=text, lang="en").save(f"{text}.wav")
 
+def mix_in_cues(cue_file:str, track_file:str, out_file:str, delay:float) -> None:
+    cue_audio = AudioSegment.from_file(cue_file)
+    track_audio = AudioSegment.from_file(track_file)
+
+    mixed = track_audio.overlay(cue_audio, position=delay * 1000)
+    mixed.export(out_file, format='wav')
+
 create_cue("hi there hello")
 t = import_track("Goodness-Of-God.json")
 export_track(t)
+
+mix_in_cues("hi there hello.wav", "Goodness-Of-God Version 1.wav", "mix.wav")
