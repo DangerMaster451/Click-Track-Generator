@@ -1,3 +1,4 @@
+from gtts import gTTS
 import wave
 import math
 import json
@@ -110,5 +111,9 @@ def save_track(track:Track, file:str) -> None:
     with open(file, "w") as file:
         file.write(json.dumps(data, indent=4))
 
+def create_cue(text) -> None:
+    gTTS(text=text, lang="en").save(f"{text}.wav")
+
+create_cue("hi there hello")
 t = import_track("Goodness-Of-God.json")
 export_track(t)
