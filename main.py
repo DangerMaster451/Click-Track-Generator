@@ -3,6 +3,7 @@ from pydub import AudioSegment
 import wave
 import math
 import json
+import os
 
 sample_rate = 44100
 high_pitch = 2093.005
@@ -21,8 +22,8 @@ class Track_Section():
         self.time_stamp = time_stamp
         self.cue = cue
 
-    def copy(self):
-        return type(self)(self.name, self.type, self.tempo, self.beats, self.sub, self.dur, self.cue)
+    def copy(self, time_stamp, cue):
+        return type(self)(self.name, self.type, self.tempo, self.beats, self.sub, self.dur, time_stamp, cue)
 
 class Tempo_Change():
     def __init__(self, name, starting_tempo, ending_tempo, beats, sub, dur):
@@ -89,6 +90,7 @@ def import_track(file:str) -> Track:
         track_beats = file_data["track-beats"]
         track_subdivisions = file_data["track-subdivisions"]
 
+
         units = []
         for unit in file_data["units"]:
             name = unit["name"]
@@ -104,38 +106,44 @@ def import_track(file:str) -> Track:
                     subdivisions = track_subdivisions[int(sub_unit["sub"])]
                 duration = sub_unit["dur"]
                 units.append(Track_Section(name, type, tempo, beats, subdivisions, duration))
+                
         
         sections = []
+        time_passed = 0
         for section in file_data["track-order"]:
             unit_name = section["unit-name"]
             cue = section["cue"]
 
             for unit in units:
                 if unit.name == unit_name:
-                    new_unit = unit.copy()
-                    new_unit.cue = cue
+                    print(unit.name, str(time_passed))
+                    new_unit = unit.copy(time_passed, cue)
                     sections.append(new_unit)
 
-        #test
-        for s in sections:
-            print(s.name, s.cue)
-
+                    time_passed += round(duration *  beats * tempo/60)
         return Track(track_name, sections)
 
-def export_track(track:Track):
+def export_track(track:Track, cue_offset:int):
     with wave.open(f"{track.name}.wav", mode="wb") as wav_file:
         #setup file
         wav_file.setnchannels(1)
         wav_file.setsampwidth(1)
         wav_file.setframerate(sample_rate)
 
-        #main song
+        #click track
         for section in track.sections:
             if section.type == "normal":
                 for _ in range(0,int(section.dur)):
                     generate_measure(wav_file, section.tempo, section.beats, section.sub)
             elif section.type == "tempo-change":
                 generate_beat(wav_file, section.tempo, section.sub, "high")
+
+        for section in track.sections:
+            if section.cue != "":
+                cue = create_cue(section.cue)
+                print(section.time_stamp)
+                mix_in_cue(cue, f"{track.name}.wav", f"{track.name}.wav", (section.time_stamp*1000))
+                os.remove(cue)
 
 def new_track() -> Track:
     track_name = input("track name: ")
@@ -159,15 +167,16 @@ def save_track(track:Track, file:str) -> None:
     with open(file, "w") as file:
         file.write(json.dumps(data, indent=4))
 
-def create_cue(text) -> None:
+def create_cue(text) -> str:
     gTTS(text=text, lang="en").save(f"{text}.wav")
+    return f"{text}.wav"
 
-def mix_in_cues(cue_file:str, track_file:str, out_file:str, delay:float) -> None:
+def mix_in_cue(cue_file:str, track_file:str, out_file:str, delay:float) -> None:
     cue_audio = AudioSegment.from_file(cue_file)
     track_audio = AudioSegment.from_file(track_file)
 
-    mixed = track_audio.overlay(cue_audio, position=delay * 1000)
+    mixed = track_audio.overlay(cue_audio, position=delay)
     mixed.export(out_file, format='wav')
 
-t = import_track("test.json")
-export_track(t)
+t = import_track("thing.json")
+export_track(t, 0)

@@ -1,0 +1,94 @@
+{
+    "track-name":"thing",
+    "track-tempi":[172],
+    "track-beats": [4],
+    "track-subdivisions":[4],
+    "units": [
+        {
+            "name":"Count-In",
+            "type":"ignore-defaults",
+            "sub-units":[
+                {
+                    "tempo":74,
+                    "beats":4,
+                    "sub":2,
+                    "dur":1
+                },
+                {
+                    "tempo":74,
+                    "beats":4,
+                    "sub":4,
+                    "dur":1
+                }
+            ]
+            
+        },
+        {
+            "name":"Intro",
+            "type":"normal",
+            "sub-units":[
+                {
+                    "tempo":0,
+                    "beats":0,
+                    "sub":0,
+                    "dur":4
+                }
+            ]  
+        },
+        {
+            "name":"Verse",
+            "type":"normal",
+            "sub-units":[
+                {
+                    "tempo":0,
+                    "beats":0,
+                    "sub":0,
+                    "dur":8
+                }
+            ]
+        },
+        {
+            "name":"Pre-chorus",
+            "type":"normal",
+            "sub-units":[
+                {
+                    "tempo":0,
+                    "beats":0,
+                    "sub":0,
+                    "dur":4
+                }
+            ]
+            
+        },
+        {
+            "name":"Chorus",
+            "type":"normal",
+            "sub-units":[
+                {
+                    "tempo":0,
+                    "beats":0,
+                    "sub":0,
+                    "dur":8
+                }
+            ]
+            
+        },
+        {
+            "name":"Outro",
+            "type":"normal",
+            "sub-units":[
+                {
+                    "tempo":0,
+                    "beats":0,
+                    "sub":0,
+                    "dur":6
+                }
+            ]
+        }
+    ],
+    "track-order":
+        [
+            {"unit-name":"Verse", "cue":"Verse 1"},
+            {"unit-name":"Chorus", "cue":"Chorus"}
+        ]
+}
