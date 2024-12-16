@@ -6,5 +6,5 @@ from import_export import IO
 from audio import Click
 
 c = Click()
-t = IO.import_track("test.json")
-IO.export_track(t, c, 0)
+t = IO.import_track("thing.json")
+IO.export_track(t, c, 0, 2)

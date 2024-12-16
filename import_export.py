@@ -48,7 +48,7 @@ class IO:
                         break
             return Track(track_name, sections)
         
-    def export_track(track:Track, click:Click, cue_offset:int):
+    def export_track(track:Track, click:Click, cue_offset:int, warning_duration:int=1):
         with wave.open(f"{track.name}.wav", mode="wb") as wav_file:
             #setup file
             wav_file.setnchannels(1)
@@ -57,9 +57,11 @@ class IO:
 
             #click track
             for section in track.sections:
-                if section.type == "normal":
-                    for _ in range(0,int(section.dur)):
+                if section.type == "normal" or section.type == "ignore-defaults":
+                    for _ in range(0,int(section.dur)-warning_duration):
                         click.generate_measure(wav_file, section.tempo, section.beats, section.sub)
+                    for _ in range(0, warning_duration):
+                        click.generate_warning_measure(wav_file, section.tempo, section.beats, section.sub)
                 elif section.type == "tempo-change":
                     click.generate_beat(wav_file, section.tempo, section.sub, "high")
 

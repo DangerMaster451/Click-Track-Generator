@@ -7,6 +7,7 @@ class Click():
         self.sample_rate = sample_rate
         self.high_pitch = high_pitch
         self.low_pitch = low_pitch
+        self.warning_pitch = warning_pitch
 
     def sine_wave(self, frequency, duration):
         for frame in range(round(duration * self.sample_rate)):
@@ -19,6 +20,12 @@ class Click():
         wav_file.writeframes(bytes(self.sine_wave(self.low_pitch, beat_duration))) # write beat 1
         for beat in range(0, int((beats)*(sub/4))-1):
             wav_file.writeframes(bytes(self.sine_wave(self.high_pitch, beat_duration))) # write rest of beats
+
+    def generate_warning_measure(self, wav_file, tempo:int, beats:int, sub:int) -> None:
+        beat_duration = 60/tempo/(sub/4)
+        wav_file.writeframes(bytes(self.sine_wave(self.low_pitch, beat_duration))) # write beat 1
+        for beat in range(0, int((beats)*(sub/4))-1):
+            wav_file.writeframes(bytes(self.sine_wave(self.warning_pitch, beat_duration))) # write rest of beats
 
     def generate_beat(self, wav_file, tempo:float, sub:int, beat_type:str):
         beat_duration = 60/tempo/(sub/4)

@@ -2,20 +2,20 @@
     "track-name":"thing",
     "track-tempi":[172],
     "track-beats": [4],
-    "track-subdivisions":[4],
+    "track-subdivisions":[8],
     "units": [
         {
             "name":"Count-In",
             "type":"ignore-defaults",
             "sub-units":[
                 {
-                    "tempo":74,
+                    "tempo":172,
                     "beats":4,
                     "sub":2,
                     "dur":1
                 },
                 {
-                    "tempo":74,
+                    "tempo":172,
                     "beats":4,
                     "sub":4,
                     "dur":1
