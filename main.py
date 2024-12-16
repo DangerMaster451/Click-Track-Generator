@@ -67,21 +67,6 @@ def generate_beat(wav_file, tempo:float, sub:int, beat_type:str):
     elif beat_type == "low":
         wav_file.writeframes(bytes(sine_wave(low_pitch, beat_duration)))
 
-'''def import_track(file) -> Track:
-        with open(file, "r") as file:
-            file_data = json.loads(file.read())
-            name = file_data["name"]
-            track_sections = []
-            for section in file_data["sections"]:
-                if section["type"] == "normal":
-                    track_sections.append(Track_Section(section["name"], section["type"], section["tempo"], section["beats"], section["sub"], section["dur"]))
-                elif section["type"] == "tempo-change":
-                    tempo_change = Tempo_Change(section["name"], section["start_tempo"], section["end_tempo"], section["beats"], section["sub"], section["dur"])
-                    for section in tempo_change.generate_sections():
-                        track_sections.append(section)
-                    
-        return Track(name, track_sections)'''
-
 def import_track(file:str) -> Track:
     with open(file, "r") as file:
         file_data = json.loads(file.read())
@@ -120,7 +105,8 @@ def import_track(file:str) -> Track:
                     new_unit = unit.copy(time_passed, cue)
                     sections.append(new_unit)
 
-                    time_passed += round(duration *  beats * tempo/60)
+                    time_passed += round(unit.dur *  unit.beats * 60/unit.tempo)
+                    break
         return Track(track_name, sections)
 
 def export_track(track:Track, cue_offset:int):
